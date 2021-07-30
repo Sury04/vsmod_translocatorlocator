@@ -1,0 +1,27 @@
+{
+  "ingredientPattern": "TPP,TMM,TPP",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "P": {
+      "type": "item",
+      "code": "game:metalplate-iron",
+      "quantity": 1
+    },
+    "M": {
+      "type": "block",
+      "code": "game:metal-parts",
+      "quantity": 1
+    },
+    "T": {
+      "type": "item",
+      "code": "game:gear-temporal",
+      "quantity": 1
+    }
+  },
+  "name": "Translocator Locator",
+  "output": {
+    "type": "item",
+    "code": "translocatorlocator:translocatorlocator"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "code",
+  "modid": "translocatorlocator",
+  "name": "TranslocatorLocator",
+  "author": "Asraiel",
+  "description": "Adds a craftable locators.",
+  "version": "1.0.1",
+  "dependencies": {
+    "game": ""
+  }
+}
