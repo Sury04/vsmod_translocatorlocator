@@ -1,0 +1,114 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="VSModTemplate Properties">
+    <TargetFramework>net462</TargetFramework>
+    <!-- These are necessary because we're kind of jury rigging everything together between .NET Standard 2.0 and .NET 4.5.2. -->
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <!-- We also want to include debugging symbols in our NuGet packages, to make it easier for everyone (we don't care too much about the additional space requirement) -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <!-- And SourceLink requires us to have a repository available -->
+    <RepositoryUrl>https://your.git.url.here</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- We have a custom Configuration, so need to add it here -->
+    <Configurations>Debug;Release;ReleaseAndZip</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Label="VSModTemplate Debug Properties" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <!-- Template default references: -->
+  <ItemGroup Label="VSModTemplate References">
+    <Reference Include="VintagestoryAPI">
+      <HintPath>$(VINTAGE_STORY)/VintagestoryAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="VintagestoryLib">
+      <HintPath>$(VINTAGE_STORY)/VintagestoryLib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="VSSurvivalMod">
+      <HintPath>$(VINTAGE_STORY)/Mods/VSSurvivalMod.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="VSEssentials">
+      <HintPath>$(VINTAGE_STORY)/Mods/VSEssentials.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="VSCreativeMod">
+      <HintPath>$(VINTAGE_STORY)/Mods/VSCreativeMod.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>$(VINTAGE_STORY)/Lib/Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Harmony">
+      <HintPath>$(VINTAGE_STORY)/Lib/0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>$(VINTAGE_STORY)/Lib/protobuf-net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SQLite">
+      <HintPath>$(VINTAGE_STORY)/Lib/System.Data.SQLite.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="cairo-sharp">
+      <HintPath>$(VINTAGE_STORY)/Lib/cairo-sharp.dll</HintPath>
+      <Private>False</Private>
+
+    </Reference>
+  </ItemGroup>
+
+  <!-- Template includes & packages: -->
+
+  <!-- Template ReleaseAndZip: -->
+  <PropertyGroup Label="Template ReleaseAndZipProperties" Condition="$(Configuration)=='ReleaseAndZip'">
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseAndZip|AnyCPU'">
+    <NoWarn>1701;1702;1006</NoWarn>
+  </PropertyGroup>
+  <Target Name="Package" AfterTargets="CleanTheOutput" Condition="'$(Configuration)' == 'ReleaseAndZip'">
+    <ItemGroup>
+      <FilesToDeleteFromReleaseAndZip Include="$(TargetDir)/$(TargetName)*.zip" />
+    </ItemGroup>
+    <Delete Files="@(FilesToDeleteFromReleaseAndZip)" ContinueOnError="true" />
+    <ZipDirectory DestinationFile="$(TargetDir)\..\$(TargetName).zip" SourceDirectory="$(TargetDir)" Overwrite="true" />
+    <RemoveDir Directories="$(TargetDir)" />
+    <ReadLinesFromFile File="modinfo.json">
+      <Output TaskParameter="Lines" ItemName="FileContents" />
+    </ReadLinesFromFile>
+    <PropertyGroup>
+      <CorrectText>@(FileContents->'%(Identity)', '%0a%0d')</CorrectText>
+      <CorrectVersionNumber>$([System.Text.RegularExpressions.Regex]::Match($(CorrectText), `\d+\.\d+\.\d+`))</CorrectVersionNumber>
+    </PropertyGroup>
+    <Move SourceFiles="$(TargetDir)\..\$(TargetName).zip" DestinationFiles="$(TargetDir)$(TargetName)_v$(CorrectVersionNumber).zip" />
+    <Message Importance="high" Text="Created zip file at $(TargetDir)$(TargetName)_v$(CorrectVersionNumber).zip" />
+  </Target>
+
+  <!-- Template content: -->
+  <ItemGroup Label="VSModTemplate Content">
+    <Content Include="assets/**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Remove="assets\translocatorlocator\itemtypes\agedwoodlocator.json" />
+    <None Remove="assets\translocatorlocator\itemtypes\translocatorlocator.json" />
+    <None Remove="assets\translocatorlocator\lang\De.json" />
+    <None Remove="assets\translocatorlocator\lang\en.json" />
+    <None Remove="assets\translocatorlocator\recipes\grid\agedwoodlocator.json" />
+    <None Remove="assets\translocatorlocator\recipes\grid\translocatorlocator.json" />
+    <None Remove="assets\translocatorlocator\shapes\item\agedwoodlocator.json" />
+    <None Remove="assets\translocatorlocator\shapes\item\translocatorlocator.json" />
+    <None Update="modinfo.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>
