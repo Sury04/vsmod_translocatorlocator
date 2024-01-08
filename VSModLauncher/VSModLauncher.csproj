@@ -1,16 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net452</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <!-- We have a custom Configuration, so need to add it here -->
     <Configurations>Debug;Release;ReleaseAndZip</Configurations>
   </PropertyGroup>
-
   <PropertyGroup Label="VSModTemplate Debug Properties" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-
-
   <!-- Template includes: -->
   <ItemGroup Label="VSModTemplate Includes">
     <Reference Include="VintagestoryAPI">
@@ -18,7 +15,6 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
-
   <ItemGroup>
     <None Update="modinfo.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

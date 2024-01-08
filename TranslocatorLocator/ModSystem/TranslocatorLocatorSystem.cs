@@ -1,8 +1,9 @@
 namespace TranslocatorLocator.ModSystem
 {
+    using ModConfig;
+    using TranslocatorLocator.ModSystem.item;
     using Vintagestory.API.Common;
     using Vintagestory.API.Server;
-    using ModConfig;
 
     public class TranslocatorLocatorSystem : ModSystem
     {

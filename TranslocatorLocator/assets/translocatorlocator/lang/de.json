@@ -6,7 +6,7 @@
 
   "translocatorlocator:item-translocatorlocator": "Translokatorlokator",
   "translocatorlocator:translocator_flavortext": "Ein nützliches kleines Gerät. Es erleichtert die Suche nach Translokatoren enorm.",
-  "translocatorlocator:translocator_no": "keinen",
+  "translocatorlocator:translocator_cubenofound": "Es gibt keine kaputten Translokatoren innerhalb von #range Blöcken um diesem Block.",
   "translocatorlocator:translocator_cubefoundlessthantwo": "Es gibt #no defekten Translokator innerhalb von #range Blöcken um diesen Block!",
   "translocatorlocator:translocator_cubefoundmorethanone": "Es gibt #no defekte Translokatoren innerhalb von #range Blöcken um diesen Block!",
   "translocatorlocator:translocator_southofthatblock": "südlich dieses Blocks",
@@ -16,6 +16,7 @@
   "translocatorlocator:translocator_belowthatblock": "unter diesem Block",
   "translocatorlocator:translocator_abovethatblock": "über diesem Block",
   "translocatorlocator:translocator_somewherearoundthatblock": "irgendwo um diesen Block",
+  "translocatorlocator:translocator_conenofound": "Es gibt keinen defekten Translokator innerhalb von #range Blöcken #direction.",
   "translocatorlocator:translocator_conefoundlessthantwo": "Es gibt #no defekten Translokator innerhalb von #range Blöcken #direction!",
   "translocatorlocator:translocator_conefoundmorethanone": "Es gibt #no defekte Translokatoren innerhalb von #range Blöcken #direction!",
 

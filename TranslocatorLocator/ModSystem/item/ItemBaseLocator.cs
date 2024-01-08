@@ -1,14 +1,14 @@
-namespace Locator
+namespace TranslocatorLocator.ModSystem.item
 {
     using System;
+    using System.Text;
+    using Cairo;
     using Vintagestory.API.Client;
     using Vintagestory.API.Common;
     using Vintagestory.API.Config;
+    using Vintagestory.API.MathTools;
     using Vintagestory.API.Server;
     using Vintagestory.API.Util;
-    using System.Text;
-    using Vintagestory.API.MathTools;
-    using Cairo;
 #pragma warning disable IDE0005
     using System.Linq;
 #pragma warning restore IDE0005

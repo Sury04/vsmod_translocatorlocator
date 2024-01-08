@@ -1,6 +1,7 @@
 namespace TranslocatorLocator
 {
-    using Locator;
+    using System.Globalization;
+    using TranslocatorLocator.ModSystem.item;
     using Vintagestory.API.Client;
     using Vintagestory.API.Common;
     using Vintagestory.API.Config;
@@ -48,58 +49,39 @@ namespace TranslocatorLocator
 
         protected override void PrintCubeSearchResults(int count, int range, ICoreClientAPI capi)
         {
-            var noOfTLs = (count > 0) ? "" + count : Lang.Get("translocatorlocator:translocator_no");
-            string message;
-            if (count <= 1)
+            //var noOfTLs = (count > 0) ? "" + count : Lang.Get("translocatorlocator:translocator_no");
+            var message = count switch
             {
-                message = Lang.Get("translocatorlocator:translocator_cubefoundlessthantwo");
-            }
-            else
-            {
-                message = Lang.Get("translocatorlocator:translocator_cubefoundmorethanone");
-            }
-            capi.ShowChatMessage(message.Replace("#no", noOfTLs).Replace("#range", "" + range));
+                0 => Lang.Get("translocatorlocator:translocator_cubenofound"),
+                1 => Lang.Get("translocatorlocator:translocator_cubefoundlessthantwo"),
+                _ => Lang.Get("translocatorlocator:translocator_cubefoundmorethanone"),
+            };
+
+            capi.ShowChatMessage(message.Replace("#no", count.ToString(CultureInfo.InvariantCulture)).Replace("#range", "" + range));
         }
 
         protected override void PrintConeSearchResults(int count, int range, int direction, ICoreClientAPI capi)
         {
-            string adjustedDirection;
-            switch (direction)
+            var adjustedDirection = direction switch
             {
                 // wording in opposite direction of face clicked
-                case 0:
-                    adjustedDirection = Lang.Get("translocatorlocator:translocator_southofthatblock");
-                    break;
-                case 1:
-                    adjustedDirection = Lang.Get("translocatorlocator:translocator_westofthatblock");
-                    break;
-                case 2:
-                    adjustedDirection = Lang.Get("translocatorlocator:translocator_northofthatblock");
-                    break;
-                case 3:
-                    adjustedDirection = Lang.Get("translocatorlocator:translocator_eastofthatblock");
-                    break;
-                case 4:
-                    adjustedDirection = Lang.Get("translocatorlocator:translocator_belowthatblock");
-                    break;
-                case 5:
-                    adjustedDirection = Lang.Get("translocatorlocator:translocator_abovethatblock");
-                    break;
-                default:
-                    adjustedDirection = Lang.Get("translocatorlocator:translocator_somewherearoundthatblock");
-                    break;
-            }
-            var noOfTLs = (count > 0) ? "" + count : Lang.Get("translocatorlocator:translocator_no");
-            string message;
-            if (count <= 1)
+                0 => Lang.Get("translocatorlocator:translocator_southofthatblock"),
+                1 => Lang.Get("translocatorlocator:translocator_westofthatblock"),
+                2 => Lang.Get("translocatorlocator:translocator_northofthatblock"),
+                3 => Lang.Get("translocatorlocator:translocator_eastofthatblock"),
+                4 => Lang.Get("translocatorlocator:translocator_belowthatblock"),
+                5 => Lang.Get("translocatorlocator:translocator_abovethatblock"),
+                _ => Lang.Get("translocatorlocator:translocator_somewherearoundthatblock"),
+            };
+
+            var message = count switch
             {
-                message = Lang.Get("translocatorlocator:translocator_conefoundlessthantwo");
-            }
-            else
-            {
-                message = Lang.Get("translocatorlocator:translocator_conefoundmorethanone");
-            }
-            capi.ShowChatMessage(message.Replace("#no", noOfTLs).Replace("#range", "" + range).Replace("#direction", adjustedDirection));
+                0 => Lang.Get("translocatorlocator:translocator_conenofound"),
+                1 => Lang.Get("translocatorlocator:translocator_conefoundlessthantwo"),
+                _ => Lang.Get("translocatorlocator:translocator_conefoundmorethanone"),
+            };
+
+            capi.ShowChatMessage(message.Replace("#no", count.ToString(CultureInfo.InvariantCulture)).Replace("#range", "" + range).Replace("#direction", adjustedDirection));
         }
 
         protected override string GetFlavorText()

@@ -6,7 +6,7 @@
 
   "translocatorlocator:item-translocatorlocator": "Translocator Locator",
   "translocatorlocator:translocator_flavortext": "A suspiciously helpful little device. Makes finding Translocators much easier.",
-  "translocatorlocator:translocator_no": "no",
+  "translocatorlocator:translocator_cubenofound": "There are no broken translocators within #range blocks of that block.",
   "translocatorlocator:translocator_cubefoundlessthantwo": "There is #no broken translocator within #range blocks of that block.",
   "translocatorlocator:translocator_cubefoundmorethanone": "There are #no broken translocators within #range blocks of that block!",
   "translocatorlocator:translocator_southofthatblock": "south of that block",
@@ -16,6 +16,7 @@
   "translocatorlocator:translocator_belowthatblock": "below that block",
   "translocatorlocator:translocator_abovethatblock": "above that block",
   "translocatorlocator:translocator_somewherearoundthatblock": "somewhere around that block",
+  "translocatorlocator:translocator_conenofound": "There is no broken translocator within #range blocks #direction.",
   "translocatorlocator:translocator_conefoundlessthantwo": "There is #no broken translocator within #range blocks #direction.",
   "translocatorlocator:translocator_conefoundmorethanone": "There are #no broken translocators within #range blocks #direction!",
 

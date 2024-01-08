@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="VSModTemplate Properties">
-    <TargetFramework>net462</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <!-- These are necessary because we're kind of jury rigging everything together between .NET Standard 2.0 and .NET 4.5.2. -->
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
@@ -16,12 +16,10 @@
     <!-- We have a custom Configuration, so need to add it here -->
     <Configurations>Debug;Release;ReleaseAndZip</Configurations>
   </PropertyGroup>
-
   <PropertyGroup Label="VSModTemplate Debug Properties" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-
   <!-- Template default references: -->
   <ItemGroup Label="VSModTemplate References">
     <Reference Include="VintagestoryAPI">
@@ -44,10 +42,6 @@
       <HintPath>$(VINTAGE_STORY)/Mods/VSCreativeMod.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>$(VINTAGE_STORY)/Lib/Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Harmony">
       <HintPath>$(VINTAGE_STORY)/Lib/0Harmony.dll</HintPath>
       <Private>False</Private>
@@ -63,12 +57,9 @@
     <Reference Include="cairo-sharp">
       <HintPath>$(VINTAGE_STORY)/Lib/cairo-sharp.dll</HintPath>
       <Private>False</Private>
-
     </Reference>
   </ItemGroup>
-
   <!-- Template includes & packages: -->
-
   <!-- Template ReleaseAndZip: -->
   <PropertyGroup Label="Template ReleaseAndZipProperties" Condition="$(Configuration)=='ReleaseAndZip'">
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -93,7 +84,6 @@
     <Move SourceFiles="$(TargetDir)\..\$(TargetName).zip" DestinationFiles="$(TargetDir)$(TargetName)_v$(CorrectVersionNumber).zip" />
     <Message Importance="high" Text="Created zip file at $(TargetDir)$(TargetName)_v$(CorrectVersionNumber).zip" />
   </Target>
-
   <!-- Template content: -->
   <ItemGroup Label="VSModTemplate Content">
     <Content Include="assets/**">
@@ -103,6 +93,7 @@
     <None Remove="assets\translocatorlocator\itemtypes\translocatorlocator.json" />
     <None Remove="assets\translocatorlocator\lang\De.json" />
     <None Remove="assets\translocatorlocator\lang\en.json" />
+    <None Remove="assets\translocatorlocator\lang\fr.json" />
     <None Remove="assets\translocatorlocator\recipes\grid\agedwoodlocator.json" />
     <None Remove="assets\translocatorlocator\recipes\grid\translocatorlocator.json" />
     <None Remove="assets\translocatorlocator\shapes\item\agedwoodlocator.json" />
@@ -110,5 +101,8 @@
     <None Update="modinfo.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 </Project>

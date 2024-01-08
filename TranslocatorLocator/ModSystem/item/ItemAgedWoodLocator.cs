@@ -1,6 +1,5 @@
-namespace TranslocatorLocator
+namespace TranslocatorLocator.ModSystem.item
 {
-    using Locator;
     using Vintagestory.API.Client;
     using Vintagestory.API.Common;
     using Vintagestory.API.Config;
@@ -44,19 +43,19 @@ namespace TranslocatorLocator
         {
             // class check of the block seems to be way faster than checking the code string
 
-            return (
+            return
                 // early returns
-                !(block is BlockSoil) &&
+                block is not BlockSoil &&
                 !block.BlockMaterial.Equals(EnumBlockMaterial.Gravel) &&
                 !block.BlockMaterial.Equals(EnumBlockMaterial.Stone) &&
                 !block.BlockMaterial.Equals(EnumBlockMaterial.Sand) &&
                   // checks
-                  ((block is BlockBed bedBlock && bedBlock.Code.Path.Contains("woodaged"))
-                || (block is BlockTapestry)
+                  (block is BlockBed bedBlock && bedBlock.Code.Path.Contains("woodaged")
+                || block is BlockTapestry
                 || (block is BlockLog logBlock && logBlock.Code.Path.Contains("aged"))
                 || (block is BlockContainer containerBlock && containerBlock.Code.Path.Contains("collapsed"))
                 || (block.BlockMaterial.Equals(EnumBlockMaterial.Wood) && block.Code.Path.Contains("planks-aged"))
-                ));
+                );
         }
 
         protected override void PrintCubeSearchResults(int count, int range, ICoreClientAPI capi)
@@ -75,32 +74,17 @@ namespace TranslocatorLocator
 
         protected override void PrintConeSearchResults(int count, int range, int direction, ICoreClientAPI capi)
         {
-            string adjustedDirection;
-            switch (direction)
+            var adjustedDirection = direction switch
             {
                 // wording in opposite direction of face clicked
-                case 0:
-                    adjustedDirection = Lang.Get("translocatorlocator:agedwood_southofthatblock");
-                    break;
-                case 1:
-                    adjustedDirection = Lang.Get("translocatorlocator:agedwood_westofthatblock");
-                    break;
-                case 2:
-                    adjustedDirection = Lang.Get("translocatorlocator:agedwood_northofthatblock");
-                    break;
-                case 3:
-                    adjustedDirection = Lang.Get("translocatorlocator:agedwood_eastofthatblock");
-                    break;
-                case 4:
-                    adjustedDirection = Lang.Get("translocatorlocator:agedwood_belowthatblock");
-                    break;
-                case 5:
-                    adjustedDirection = Lang.Get("translocatorlocator:agedwood_abovethatblock");
-                    break;
-                default:
-                    adjustedDirection = Lang.Get("translocatorlocator:agedwood_somewherearoundthatblock");
-                    break;
-            }
+                0 => Lang.Get("translocatorlocator:agedwood_southofthatblock"),
+                1 => Lang.Get("translocatorlocator:agedwood_westofthatblock"),
+                2 => Lang.Get("translocatorlocator:agedwood_northofthatblock"),
+                3 => Lang.Get("translocatorlocator:agedwood_eastofthatblock"),
+                4 => Lang.Get("translocatorlocator:agedwood_belowthatblock"),
+                5 => Lang.Get("translocatorlocator:agedwood_abovethatblock"),
+                _ => Lang.Get("translocatorlocator:agedwood_somewherearoundthatblock"),
+            };
             string message;
             if (count < 1)
             {
